@@ -1,3 +1,3 @@
 module.exports = {
-      secret : "KAM-secrey-key"
+      secret : "KAM-secret-key"
 }
