@@ -1,3 +1,5 @@
+// not working on it currently
+
 const {authJwt}  = require('../middlewares/authMiddleware');
 const User = require("../controllers/authContoller");
 const express = require('express');
