@@ -38,7 +38,14 @@ exports.create = (req ,res)=>{
 
 // Retrieve all the Leads
 exports.findAll = (req,res)=>{
-
+      Lead.findAll().then((data) =>{
+            res.send(data);
+            res.status(200);
+      }).catch(err=>{
+            res.status(500).send({
+                  message : "error fetching the leads "+ err
+            })
+      })
 }
 
 //Find a single lead with an ID
@@ -47,7 +54,7 @@ exports.findOne =(req,res) =>{
 }
 
 //Update a lead by Id in the request
-exports.uodate =(req,res) =>{
+exports.update =(req,res) =>{
 
 }
 
