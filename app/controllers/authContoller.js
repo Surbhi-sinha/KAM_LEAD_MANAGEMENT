@@ -31,34 +31,39 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
       try {
             const user = await User.findOne({
-                  where:{username: req.body.username}                  
-            }).then((user) => {
-                  var passValidate = bcrypt.compareSync(req.body.password, user.password);
-
-                  if (!passValidate) {
-                        res.status(401).send({
-                              accessToken: null,
-                              message: "Invalid Password 1"
-                        })
-                  }
-
-                  var token = jwt.sign({ id: user.id }, config.secret, {
-                        algorithm: 'HS256',
-                        allowInsecureKeySizes: true,
-                        expiresIn: 86400 //24hrs
-                  })
-
-                  return res.status(200).send({
-                        id: user._id,
-                        username: user.username,
-                        email: user.email,
-                        accessToken: token
-                  })
+                  where: { username: req.body.username }
             })
+            if (!user) {
+                  return res.status(404).send({
+                        message: "User not found",
+                  });
+            }
+            var passValidate = bcrypt.compareSync(req.body.password, user.password);
+
+            if (!passValidate) {
+                  return res.status(401).send({
+                        accessToken: null,
+                        message: "Invalid Password 1"
+                  })
+            }
+
+            var token = jwt.sign({ id: user.id }, config.secret, {
+                  algorithm: 'HS256',
+                  allowInsecureKeySizes: true,
+                  expiresIn: 86400 //24hrs
+            })
+
+            return res.status(200).send({
+                  id: user._id,
+                  username: user.username,
+                  email: user.email,
+                  accessToken: token
+            })
+
       } catch (err) {
-            console.log("Sign Up error ! : ", err);
+            console.log("Sign in error ! : ", err);
             return res.status(500).send({
-                  message : "Error while sigining up!"
+                  message: "Error while sigining up!"
             })
       }
 }
