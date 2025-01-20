@@ -1,16 +1,7 @@
-const {DataTypes,Sequelize} = require('sequelize');
-const dbConfig = require('../config/db.config');
+const {DataTypes} = require('sequelize');
+const sequelize = require('../config/db');
 
-// console.log(sequelize)
-const sequelize = new Sequelize(dbConfig.DB , dbConfig.USER , dbConfig.PASSWORD,{
-      host : dbConfig.HOST,
-      dialect : dbConfig.dialect
-})
-
-// console.log(sequelize ,dbConfig.DB , dbConfig.USER , dbConfig.PASSWORD )
-const leadDB = {};
 const Lead = sequelize.define('Lead' , {
-      // lead_ID : {type : DataTypes.INTEGER , primaryKey : true , autoIncrement : true},
       restraunt_name :{type: DataTypes.STRING , allowNull : false},
       restraunt_address :{type: DataTypes.STRING},
       status : {type: DataTypes.ENUM('new' , 'contacted' , 'discussion', 'closed'), defaultValue : 'new'},
@@ -30,9 +21,5 @@ const Lead = sequelize.define('Lead' , {
 });
 
 
-leadDB.Sequelize = Sequelize;
-leadDB.sequelize = sequelize;
-leadDB.lead = Lead;
 
-
-module.exports = leadDB;
+module.exports = Lead;

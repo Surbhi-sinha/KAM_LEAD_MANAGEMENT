@@ -60,5 +60,4 @@ const authJwt = {
       verifyToken,
       checkDuplicateUsernameOrEmail
 }
-console.log(authJwt);
 module.exports = authJwt;
