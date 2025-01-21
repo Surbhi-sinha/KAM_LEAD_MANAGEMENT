@@ -6,34 +6,34 @@ exports.Test = (req, res) => {
       res.status(200).json({ message: 'Test endpoint working!', data: req.body });
 };
 exports.create = (req, res) => {
-            if (!req.body.LeadId || !req.body.comment) {
-                  return res.status(400).send({ message: 'Lead ID and Comment are required' });
-            }
-            const interaction = {
-                  comment: req.body.comment,
-                  LeadId: req.body.LeadId
-            };
+      if (!req.body.LeadId || !req.body.comment) {
+            return res.status(400).send({ message: 'Lead ID and Comment are required' });
+      }
+      const interaction = {
+            comment: req.body.comment,
+            LeadId: req.body.LeadId
+      };
 
-            Interaction.create(interaction).then((data)=>{
-                  res.status(200).send({
-                        message : "Interaction saved!"
-                  });
-                  // res
-            }).catch(err =>{
-                  res.status(500).send({
-                        message : "Error occured " + err
-                  })
+      Interaction.create(interaction).then((data) => {
+            res.status(200).send({
+                  message: "Interaction saved!"
+            });
+            // res
+      }).catch(err => {
+            res.status(500).send({
+                  message: "Error occured " + err
             })
-            
+      })
+
 };
 
 // Retrieve all interaction for a specific lead
 exports.findAllBylead_Id = (req, res) => {
-      const LeadId = req.params.LeadId;
-
+      const LeadId = req.params.leadId;
+      console.log(req,res);
       Interaction.findAll({
             where: { LeadId: LeadId },
-            order: [['createdAt', 'DESC']]  // Sorting by most recent first
+            order: [['created_at', 'DESC']]  // Sorting by most recent first
       })
             .then((data) => {
                   if (data.length === 0) {
@@ -52,7 +52,7 @@ exports.findAllBylead_Id = (req, res) => {
 
 // update an Interaction by Id
 exports.update = (req, res) => {
-      const id = req.param.id;
+      const id = req.params.id;
 
       Interaction.update(req.body, {
             where: { id: id }
