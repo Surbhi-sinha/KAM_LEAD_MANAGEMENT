@@ -52,7 +52,17 @@ exports.findAll = (req,res)=>{
 
 //Find a single lead with an ID
 exports.findOne =(req,res) =>{
-
+      const id = req.params.id;
+      console.log(id);
+      Lead.findByPk(id).then((data)=>{
+            console.log(data);
+            res.send(data);
+            res.status(200);
+      }).catch((err)=>{
+            res.status(500).send({
+                  message:"error fetching the lead with ID : "+err
+            })
+      })
 }
 
 //Update a lead by Id in the request
