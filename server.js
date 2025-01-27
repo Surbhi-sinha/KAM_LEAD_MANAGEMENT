@@ -8,7 +8,6 @@ const sequelize = require('./app/config/db')
 
 //app
 const app = express();
-console.log(process.env.PORT);
 var corsOptions = {
       origin : "http://localhost:3000"
 }

@@ -61,7 +61,6 @@ exports.signin = async (req, res) => {
             })
 
       } catch (err) {
-            console.log("Sign in error ! : ", err);
             return res.status(500).send({
                   message: "Error while sigining up!"
             })

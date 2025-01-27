@@ -2,7 +2,6 @@ const Interaction = require('../models/Interaction');
 
 // Inside Interactions.js controller
 exports.Test = (req, res) => {
-      console.log(req.body); // Logs incoming data
       res.status(200).json({ message: 'Test endpoint working!', data: req.body });
 };
 exports.create = (req, res) => {
@@ -30,7 +29,6 @@ exports.create = (req, res) => {
 // Retrieve all interaction for a specific lead
 exports.findAllBylead_Id = (req, res) => {
       const LeadId = req.params.leadId;
-      console.log(req,res);
       Interaction.findAll({
             where: { LeadId: LeadId },
             order: [['created_at', 'DESC']]  // Sorting by most recent first
